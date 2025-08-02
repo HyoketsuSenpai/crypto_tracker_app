@@ -1,7 +1,10 @@
+import 'dart:io';
+
 import 'package:crypto_tracker_app/core/constants.dart';
 import 'package:crypto_tracker_app/core/error/exception.dart';
 import 'package:crypto_tracker_app/features/GetCoinList/data/datasources/coin_list_remote_data_source.dart';
 import 'package:crypto_tracker_app/features/GetCoinList/data/models/coin_model.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
@@ -15,9 +18,16 @@ void main() async {
   late MockClient mockClient;
   late CoinListRemoteDataSourceImpl remoteDataSource;
 
-  setUp(() {
+  late String apiKey = dotenv.env['API_KEY']!;
+
+  setUp(() async {
+    dotenv.testLoad(fileInput: 'API_KEY=test-Key');
+
     mockClient = MockClient();
-    remoteDataSource = CoinListRemoteDataSourceImpl(client: mockClient);
+    remoteDataSource = CoinListRemoteDataSourceImpl(
+      client: mockClient,
+      apiKey: apiKey,
+    );
   });
 
   int tPage = 1;

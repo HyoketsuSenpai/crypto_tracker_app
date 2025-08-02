@@ -1,6 +1,5 @@
 import 'dart:convert';
 
-import 'package:crypto_tracker_app/core/constants.dart';
 import 'package:crypto_tracker_app/core/error/exception.dart';
 import 'package:crypto_tracker_app/core/error/failure.dart';
 import 'package:crypto_tracker_app/features/GetCoinList/data/models/coin_model.dart';
@@ -16,8 +15,9 @@ abstract class CoinListRemoteDataSource {
 
 class CoinListRemoteDataSourceImpl extends CoinListRemoteDataSource {
   final http.Client client;
+  final String apiKey;
 
-  CoinListRemoteDataSourceImpl({required this.client});
+  CoinListRemoteDataSourceImpl({required this.client, required this.apiKey});
 
   @override
   Future<List<CoinModel>> getCoinList(int page) async {
