@@ -1,9 +1,22 @@
 part of 'getcoinlist_bloc.dart';
 
 abstract class GetcoinlistState extends Equatable {
-  const GetcoinlistState();  
+  final List<Object> p;
+
+  const GetcoinlistState([this.p = const <Object>[]]);  
 
   @override
-  List<Object> get props => [];
+  List<Object> get props => p;
 }
-class GetcoinlistInitial extends GetcoinlistState {}
+class Empty extends GetcoinlistState {}
+class Loading extends GetcoinlistState {}
+class Error extends GetcoinlistState {
+  final String message;
+
+  Error({required this.message}):super([message]);
+}
+class Loaded extends GetcoinlistState {
+  final List<Coin> coins;
+
+  Loaded({required this.coins}):super([coins]);
+}
