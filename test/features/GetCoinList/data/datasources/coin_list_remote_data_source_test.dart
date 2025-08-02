@@ -52,7 +52,6 @@ void main() async {
     ),
   ];
 
-  //maybe mock the env too?
   group('Coin list Remote Data Source', () {
     test('Should call get method from client', () async {
       when(

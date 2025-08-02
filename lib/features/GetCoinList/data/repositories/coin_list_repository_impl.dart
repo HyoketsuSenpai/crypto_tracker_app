@@ -1,8 +1,7 @@
 import 'package:crypto_tracker_app/core/error/exception.dart';
 import 'package:crypto_tracker_app/core/error/failure.dart';
 import 'package:crypto_tracker_app/features/GetCoinList/data/datasources/coin_list_remote_data_source.dart';
-
-import 'package:crypto_tracker_app/features/GetCoinList/domain/entities/coin.dart';
+import 'package:crypto_tracker_app/features/GetCoinList/data/models/coin_model.dart';
 
 import 'package:dartz/dartz.dart';
 
@@ -14,7 +13,7 @@ class CoinListRepositoryImpl implements CoinListRepository {
   CoinListRepositoryImpl({required this.dataSource});
 
   @override
-  Future<Either<Failure, List<Coin>>> getCoinList(int page) async {
+  Future<Either<Failure, List<CoinModel>>> getCoinList(int page) async {
     try {
       return Right(await dataSource.getCoinList(page));
     } on ServerException {
