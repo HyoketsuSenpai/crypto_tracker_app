@@ -6,3 +6,12 @@ abstract class GetcoingraphEvent extends Equatable {
   @override
   List<Object> get props => [];
 }
+
+class GetCoinGraphEvent extends GetcoingraphEvent {
+  final String id;
+  final int days;
+
+  const GetCoinGraphEvent({required this.id, required this.days});
+
+
+}

@@ -8,6 +8,7 @@ abstract class GetcoinlistState extends Equatable {
   @override
   List<Object> get props => p;
 }
+
 class Empty extends GetcoinlistState {}
 class Loading extends GetcoinlistState {}
 class Error extends GetcoinlistState {

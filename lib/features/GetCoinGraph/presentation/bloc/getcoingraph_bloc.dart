@@ -1,13 +1,28 @@
 import 'package:bloc/bloc.dart';
+import 'package:crypto_tracker_app/core/error/failure.dart';
+import 'package:crypto_tracker_app/features/GetCoinGraph/domain/entities/time_price.dart';
 import 'package:equatable/equatable.dart';
+import 'package:flutter_test/flutter_test.dart';
+
+import '../../domain/usecases/get_coin_graph.dart';
 
 part 'getcoingraph_event.dart';
 part 'getcoingraph_state.dart';
 
 class GetcoingraphBloc extends Bloc<GetcoingraphEvent, GetcoingraphState> {
-  GetcoingraphBloc() : super(GetcoingraphInitial()) {
-    on<GetcoingraphEvent>((event, emit) {
-      // TODO: implement event handler
+  final GetCoinGraph getCoinGraph;
+
+  GetcoingraphBloc(this.getCoinGraph) : super(Empty()) {
+    on<GetCoinGraphEvent>((event, emit) async {
+      
+      emit(Loading());
+
+      final result = await getCoinGraph(Params(id: event.id, days: event.days));
+      result.fold(
+        (failure) => emit(Error(message: 'error message')),
+        (points) => emit(Loaded(points: points)),
+      );
+
     });
   }
 }

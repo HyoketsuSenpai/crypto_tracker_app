@@ -9,9 +9,12 @@ part 'getcoinlist_state.dart';
 class GetcoinlistBloc extends Bloc<GetcoinlistEvent, GetcoinlistState> {
 
   final GetCoinList getCoinList;
+  
   GetcoinlistBloc({required this.getCoinList}) : super(Empty()) {
     on<GetCoinListEvent>((event, emit) async {
+      
       emit(Loading());
+
       final result = await getCoinList(Params(page: event.page));
      result.fold(
         (failure) {
@@ -21,8 +24,6 @@ class GetcoinlistBloc extends Bloc<GetcoinlistEvent, GetcoinlistState> {
           emit(Loaded(coins: coins));
         },
       );
-
-      
 
     });
   }

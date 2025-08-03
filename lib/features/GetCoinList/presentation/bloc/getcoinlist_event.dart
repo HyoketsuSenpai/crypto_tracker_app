@@ -11,6 +11,6 @@ abstract class GetcoinlistEvent extends Equatable {
 class GetCoinListEvent extends GetcoinlistEvent {
   final int page;
 
-  GetCoinListEvent(this.page);
+  const GetCoinListEvent(this.page);
 
 }
