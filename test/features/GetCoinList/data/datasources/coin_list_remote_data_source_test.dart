@@ -1,6 +1,4 @@
-import 'dart:io';
 
-import 'package:crypto_tracker_app/core/constants.dart';
 import 'package:crypto_tracker_app/core/error/exception.dart';
 import 'package:crypto_tracker_app/features/GetCoinList/data/datasources/coin_list_remote_data_source.dart';
 import 'package:crypto_tracker_app/features/GetCoinList/data/models/coin_model.dart';

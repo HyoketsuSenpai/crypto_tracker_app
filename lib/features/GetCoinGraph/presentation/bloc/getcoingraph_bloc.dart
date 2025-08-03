@@ -1,8 +1,6 @@
 import 'package:bloc/bloc.dart';
-import 'package:crypto_tracker_app/core/error/failure.dart';
 import 'package:crypto_tracker_app/features/GetCoinGraph/domain/entities/time_price.dart';
 import 'package:equatable/equatable.dart';
-import 'package:flutter_test/flutter_test.dart';
 
 import '../../domain/usecases/get_coin_graph.dart';
 

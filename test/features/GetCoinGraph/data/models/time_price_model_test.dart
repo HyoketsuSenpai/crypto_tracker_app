@@ -5,7 +5,6 @@ import 'dart:convert';
 import 'package:crypto_tracker_app/features/GetCoinGraph/data/models/time_price_model.dart';
 import 'package:crypto_tracker_app/features/GetCoinGraph/domain/entities/time_price.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:mockito/mockito.dart';
 
 import '../../../../fixture_reader.dart';
 

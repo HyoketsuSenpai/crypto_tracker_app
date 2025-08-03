@@ -1,9 +1,7 @@
 import 'dart:convert';
 
 import 'package:crypto_tracker_app/core/error/exception.dart';
-import 'package:crypto_tracker_app/core/error/failure.dart';
 import 'package:crypto_tracker_app/features/GetCoinList/data/models/coin_model.dart';
-import 'package:dartz/dartz.dart';
 import 'package:http/http.dart' as http;
 
 abstract class CoinListRemoteDataSource {

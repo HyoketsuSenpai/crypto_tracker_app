@@ -73,7 +73,7 @@ void main() {
         (_) async => http.Response(fixture('error'), 404),
       );
 
-      final result = await dataSourceImpl.getCoinGraph;
+      final result = dataSourceImpl.getCoinGraph;
 
       expect(()=>result(tId,tDays), throwsA(TypeMatcher<ServerException>()));
     });
