@@ -1,0 +1,18 @@
+[
+{
+    "id": "bitcoin",
+    "symbol": "btc",
+    "name": "Bitcoin",
+    "image": "https://assets.coingecko.com/coins/images/1/large/bitcoin.png?1696501400",
+    "current_price": 70187,
+    "price_change_percentage_24h": 3.12502
+},
+{
+    "id": "bitcoin",
+    "symbol": "btc",
+    "name": "Bitcoin",
+    "image": "https://assets.coingecko.com/coins/images/1/large/bitcoin.png?1696501400",
+    "current_price": 70187,
+    "price_change_percentage_24h": 3.12502
+}
+]
