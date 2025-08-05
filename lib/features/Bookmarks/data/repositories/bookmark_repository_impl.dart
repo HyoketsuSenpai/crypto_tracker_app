@@ -14,7 +14,7 @@ class BookmarkRepositoryImpl implements BookmarkRepository {
   @override
   Future<Either<Failure, Unit>> addBookmark(Coin coin) async {
     try {
-      return Right(await dataSource.addBookmark(coin as CoinModel));
+      return Right(await dataSource.addBookmark(CoinModel.fromEntity(coin)));
     } on CacheException {
       return Left(CacheFailure());
     }
@@ -32,7 +32,7 @@ class BookmarkRepositoryImpl implements BookmarkRepository {
   @override
   Future<Either<Failure, bool>> isBookmarked(Coin coin) async {
     try {
-      return Right(await dataSource.isBookmarked(coin as CoinModel));
+      return Right(await dataSource.isBookmarked(CoinModel.fromEntity(coin)));
     } on CacheException {
       return Left(CacheFailure());
     }
@@ -41,7 +41,7 @@ class BookmarkRepositoryImpl implements BookmarkRepository {
   @override
   Future<Either<Failure, Unit>> removeBookmark(Coin coin) async {
     try {
-      return Right(await dataSource.removeBookmark(coin as CoinModel));
+      return Right(await dataSource.removeBookmark(CoinModel.fromEntity(coin)));
     } on CacheException {
       return Left(CacheFailure());
     }

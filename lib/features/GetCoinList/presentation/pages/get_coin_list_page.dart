@@ -1,3 +1,4 @@
+import 'package:crypto_tracker_app/features/Bookmarks/presentation/pages/bookmark_page.dart';
 import 'package:crypto_tracker_app/features/GetCoinList/presentation/bloc/getcoinlist_bloc.dart';
 import 'package:crypto_tracker_app/injection_container.dart';
 import 'package:crypto_tracker_app/pages/coin_details.dart';
@@ -16,12 +17,61 @@ class _GetCoinListPageState extends State<GetCoinListPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: Text('Crypto tracker app')),
-      body: BlocProvider(
-        create: (context) => sl<GetcoinlistBloc>()..add(GetCoinListEvent(page)),
-        child: Container(
-          child: BlocBuilder<GetcoinlistBloc, GetcoinlistState>(
+    return BlocProvider(
+      create: (context) => sl<GetcoinlistBloc>()..add(GetCoinListEvent(page)),
+      child: Builder(
+        builder: (context) => Scaffold(
+          drawer: Drawer(
+            child: ListView(
+              children: [
+                DrawerHeader(child: Text('Navigatation')),
+                ListTile(title: Text('home'), tileColor: Colors.grey),
+                ListTile(
+                  title: Text('Bookmarks'),
+                  onTap: () {
+                    Navigator.pop(context);
+                    Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(builder: (context) => BookmarkPage()),
+                    );
+                  },
+                ),
+              ],
+            ),
+          ),
+          
+          appBar: AppBar(title: Text('Home')),
+          bottomNavigationBar: BottomAppBar(
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                IconButton(
+                  onPressed: () {
+                    setState(() {
+                      if (page > 1) {
+                        page -= 1;
+                      }
+                      context.read<GetcoinlistBloc>().add(
+                        GetCoinListEvent(page),
+                      );
+                    });
+                  },
+                  icon: Icon(Icons.arrow_left),
+                ),
+                Text('Page: $page'),
+                IconButton(
+                  onPressed: () {
+                    setState(() {
+                      page += 1;
+                    });
+                    context.read<GetcoinlistBloc>().add(GetCoinListEvent(page));
+                  },
+                  icon: Icon(Icons.arrow_right),
+                ),
+              ],
+            ),
+          ),
+          body: BlocBuilder<GetcoinlistBloc, GetcoinlistState>(
             builder: (context, state) {
               if (state is Loading) {
                 return Center(child: CircularProgressIndicator());
@@ -44,43 +94,50 @@ class _GetCoinListPageState extends State<GetCoinListPage> {
                         ),
                       ),
                       child: Card(
-                        child: Row(
-                          children: [
-                            CircleAvatar(
-                              backgroundImage: NetworkImage(coin.image),
-                            ),
-                            Column(
-                              children: [Text(coin.name), Text(coin.symbol)],
-                            ),
-                            Column(
-                              children: [
-                                Text(
-                                  '${coin.currentPrice}',
-                                  style: TextStyle(
-                                    color: (coin.priceChangePercentage24h >= 0)
-                                        ? Colors.green
-                                        : Colors.red,
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              CircleAvatar(
+                                backgroundImage: NetworkImage(coin.image),
+                              ),
+                              Column(
+                                children: [Text(coin.name), Text(coin.symbol)],
+                              ),
+                              Column(
+                                children: [
+                                  Text(
+                                    '${coin.currentPrice}',
+                                    style: TextStyle(
+                                      color:
+                                          (coin.priceChangePercentage24h >= 0)
+                                          ? Colors.green
+                                          : Colors.red,
+                                    ),
                                   ),
-                                ),
-                                Text(
-                                  '${coin.priceChangePercentage24h}',
-                                  style: TextStyle(
-                                    color: (coin.priceChangePercentage24h >= 0)
-                                        ? Colors.green
-                                        : Colors.red,
+                                  Text(
+                                    '${coin.priceChangePercentage24h}',
+                                    style: TextStyle(
+                                      color:
+                                          (coin.priceChangePercentage24h >= 0)
+                                          ? Colors.green
+                                          : Colors.red,
+                                    ),
                                   ),
-                                ),
-                              ],
-                            ),
-                          ],
+                                ],
+                              ),
+                            ],
+                          ),
                         ),
                       ),
+                    
                     );
                   },
                 );
               }
 
-              return Text('hello');
+              return Text('Error: Unknown state');
             },
           ),
         ),

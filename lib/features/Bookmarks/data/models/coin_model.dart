@@ -12,6 +12,17 @@ class CoinModel extends Coin {
     required super.priceChangePercentage24h,
   });
 
+  factory CoinModel.fromEntity(Coin coin) {
+    return CoinModel(
+      id: coin.id,
+      symbol: coin.symbol,
+      name: coin.name,
+      image: coin.image,
+      currentPrice: coin.currentPrice,
+      priceChangePercentage24h: coin.priceChangePercentage24h,
+    );
+  }
+
   factory CoinModel.fromJson(Map<String, dynamic> json) {
     return CoinModel(
       id: json['id'],

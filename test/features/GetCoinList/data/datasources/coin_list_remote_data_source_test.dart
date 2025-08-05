@@ -1,4 +1,3 @@
-
 import 'package:crypto_tracker_app/core/error/exception.dart';
 import 'package:crypto_tracker_app/features/GetCoinList/data/datasources/coin_list_remote_data_source.dart';
 import 'package:crypto_tracker_app/features/GetCoinList/data/models/coin_model.dart';
@@ -38,6 +37,12 @@ void main() async {
           'https://assets.coingecko.com/coins/images/1/large/bitcoin.png?1696501400',
       currentPrice: 70187,
       priceChangePercentage24h: 3.12502,
+      priceChange24h: 2126.88,
+      marketCap: 1381651251183,
+      low24h: 68060,
+      high24h: 70215,
+      ath: 73738,
+      atl: 67.81,
     ),
     CoinModel(
       id: 'bitcoin',
@@ -47,6 +52,12 @@ void main() async {
           'https://assets.coingecko.com/coins/images/1/large/bitcoin.png?1696501400',
       currentPrice: 70187,
       priceChangePercentage24h: 3.12502,
+      priceChange24h: 2126.88,
+      marketCap: 1381651251183,
+      low24h: 68060,
+      high24h: 70215,
+      ath: 73738,
+      atl: 67.81,
     ),
   ];
 

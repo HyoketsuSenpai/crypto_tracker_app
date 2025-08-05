@@ -1,3 +1,11 @@
+import 'package:crypto_tracker_app/features/Bookmarks/data/datasources/bookmark_local_data_source.dart';
+import 'package:crypto_tracker_app/features/Bookmarks/data/repositories/bookmark_repository_impl.dart';
+import 'package:crypto_tracker_app/features/Bookmarks/domain/repositories/bookmark_repository.dart';
+import 'package:crypto_tracker_app/features/Bookmarks/domain/usecases/add_bookmark.dart';
+import 'package:crypto_tracker_app/features/Bookmarks/domain/usecases/get_all_bookmarked.dart';
+import 'package:crypto_tracker_app/features/Bookmarks/domain/usecases/is_bookmarked.dart';
+import 'package:crypto_tracker_app/features/Bookmarks/domain/usecases/remove_bookmark.dart';
+import 'package:crypto_tracker_app/features/Bookmarks/presentation/bloc/bookmarks_bloc.dart';
 import 'package:crypto_tracker_app/features/GetCoinGraph/data/datasources/coin_graph_remote_data_source.dart';
 import 'package:crypto_tracker_app/features/GetCoinGraph/data/repositories/coin_graph_repository_impl.dart';
 import 'package:crypto_tracker_app/features/GetCoinGraph/domain/repositories/coin_graph_repository.dart';
@@ -11,6 +19,7 @@ import 'package:crypto_tracker_app/features/GetCoinList/presentation/bloc/getcoi
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:get_it/get_it.dart';
 import 'package:http/http.dart' as http;
+import 'package:shared_preferences/shared_preferences.dart';
 
 final sl = GetIt.instance;
 
@@ -34,5 +43,22 @@ Future<void> init () async {
 
   sl.registerFactory(()=>GetcoingraphBloc(sl()));
 
+
+  final sharedPreferences = await SharedPreferences.getInstance();
+  sl.registerSingleton<SharedPreferences>(sharedPreferences);
+
+  sl.registerLazySingleton<BookmarkLocalDataSource>(()=>BookmarkLocalDataSourceImpl(sp: sl()));
+
+  sl.registerLazySingleton<BookmarkRepository>(()=>BookmarkRepositoryImpl(dataSource: sl()));
+
+  sl.registerLazySingleton(()=>AddBookmark(repository: sl()));
+  
+  sl.registerLazySingleton(()=>RemoveBookmark(repository: sl()));
+
+  sl.registerLazySingleton(() => GetAllBookmarked(repository: sl()));
+
+  sl.registerLazySingleton(()=>IsBookmarked(repository: sl()));
+
+  sl.registerFactory(()=>BookmarksBloc(sl(), sl(), sl(), sl()));
 
 }

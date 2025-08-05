@@ -56,7 +56,7 @@ class BookmarkLocalDataSourceImpl implements BookmarkLocalDataSource {
   Future<bool> isBookmarked(CoinModel coin) async {
     final bookmarkedString = sp.getString('bookmark') ?? '[]';
     List<CoinModel> coins = CoinModel.decode(bookmarkedString);
-    return coins.any((item) => item == coin);
+    return coins.any((item) => item.id == coin.id);
   }
 
   @override
@@ -64,7 +64,7 @@ class BookmarkLocalDataSourceImpl implements BookmarkLocalDataSource {
     try {
       final bookmarkedString = sp.getString('bookmark') ?? '[]';
       List<CoinModel> coins = CoinModel.decode(bookmarkedString);
-      coins.remove(coin);
+      coins.removeWhere((c)=>coin.id == c.id);
       final sucess = await sp.setString('bookmark', CoinModel.encode(coins));
       if (!sucess) {
         throw CacheException();
